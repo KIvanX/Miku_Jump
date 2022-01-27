@@ -1,0 +1,6 @@
+attack 39 2
+go 43 3
+jump 42 44
+loss 28 1
+Stand 18 3
+win 27 3
