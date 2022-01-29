@@ -19,7 +19,7 @@ rects = open('old/rect.txt').read().replace('\n', ' ').split()
 
 pygame.init()
 window = pygame.display.set_mode((w, h))
-pygame.display.set_caption("Miku jump v1")
+pygame.display.set_caption("Miku jump")
 font = pygame.font.SysFont('cambriacambriamath', 32)
 clock = pygame.time.Clock()
 fon = pygame.image.load('pic/fon.jpg')
