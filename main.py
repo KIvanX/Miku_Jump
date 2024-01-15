@@ -1,3 +1,6 @@
+import os
+import sys
+
 import pygame
 from random import randint
 
@@ -49,6 +52,9 @@ while play:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             play = False
+
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+            os.execv(sys.executable, ['python3'] + sys.argv)
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
@@ -114,7 +120,7 @@ while play:
                         plat.image = pygame.image.load('pic/plat2.png')
                         plat.image.set_colorkey((255, 255, 255))
                         plat.rect = plat.image.get_rect()
-                        plat.rect.x, plat.rect.y = Plat.rect.x+randint(130, 200)+spsh, Plat.rect.y+randint(-100, 50)
+                        plat.rect.x, plat.rect.y = Plat.rect.x+min(280, randint(130, 200)+scht*2), Plat.rect.y+randint(-100, 50)
                         group.add(plat)
                         scht += 1
                         sdvig = True
@@ -125,16 +131,25 @@ while play:
     if Miku.rect.y > 500:
         font = pygame.font.SysFont('cambriacambriamath', 32)
         window.blit(fon, (0, 0))
+
         text = font.render('Счёт: ' + str(scht), True, (100, 100, 250))
-        window.blit(text, (0, 0))
+        window.blit(text, (10, 10))
+
         font = pygame.font.SysFont('cambriacambriamath', 85)
-        text = font.render('Ты проиграл', True, (30, 30, 150))
-        window.blit(text, (w // 4-50, h // 2-80))
+        text = font.render('Игра окончена', True, (20, 20, 150))
+        window.blit(text, (w // 2 - 200, h // 2 - 85))
+
+        font = pygame.font.SysFont('cambriacambriamath', 50)
+        text = font.render('R - играть снова', True, (20, 20, 150))
+        window.blit(text, (w // 2 - 130, h // 2 - 20))
+
         pygame.display.flip()
         while play:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     play = False
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+                    os.execv(sys.executable, ['python3'] + sys.argv)
 
     for Plat in group:
         if Plat.rect.x < -100:
@@ -177,7 +192,7 @@ while play:
     window.blit(Miku.image, (Miku.rect.x-xst, Miku.rect.y-yst))
 
     text = font.render('Счёт: ' + str(scht), True, (100, 100, 250))
-    window.blit(text, (0, 0))
+    window.blit(text, (10, 10))
 
     # pygame.draw.rect(window, (255, 0, 0), (Miku.rect.x, Miku.rect.y, Miku.rect.width, Miku.rect.height), 2)
 
